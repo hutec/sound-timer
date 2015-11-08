@@ -1,0 +1,133 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+        <script>
+            var run;
+            var watch;
+            var seconds = 00; 
+            var minutes = 00; 
+            var hours = 00;
+
+            function startplaying(time) {
+                run = setInterval(function() { $('audio')[0].play(); }, time);
+                watch = setInterval(add, 1000);
+            }
+
+            function add() {
+                seconds++;
+                if (seconds >= 60) {
+                    seconds = 0;
+                    minutes++;
+                    if (minutes < 10){
+                        $('#minutes').text("0"+minutes);
+                    } else {
+                        $('#minutes').text(minutes);
+                }
+                    if (minutes >= 60) {
+                        minutes = 0;
+                        hours++;
+                        $('#hours').text(hours);
+                    }
+                }
+                if (seconds < 10) {
+                    $('#seconds').text("0" + seconds);
+                } else {
+                    $('#seconds').text(seconds);
+                }
+            }
+
+            window.onload = function () {
+                var buttonStart = document.getElementById('button-start');
+                var buttonStop = document.getElementById('button-stop');
+                var buttonReset = document.getElementById('button-reset');
+                var Interval ;
+
+                buttonStart.onclick = function() {
+                    clearInterval(run);
+                    clearInterval(watch);
+                    startplaying(60000);
+                }
+
+                buttonStop.onclick = function() {
+                    clearInterval(run);
+                    clearInterval(watch);
+                }
+
+                buttonReset.onclick = function() {
+                    clearInterval(run);
+                    clearInterval(watch);
+                    seconds = 0;
+                    minutes = 0;
+                    hours = 0;
+                    $('#seconds').text("00");
+                    $('#minutes').text("00");
+                    $('#hours').text("00");
+                }
+            }
+
+            
+        </script>
+        <style class="cp-pen-styles">/* Variabes */
+        /* Mixin's */
+        body {
+        background: #ffa600;
+        }
+
+        .wrapper {
+        width: 800px;
+        margin: 150px auto;
+        color: #fff;
+        text-align: center;
+        }
+
+        h1, h2, h3 {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 100;
+        font-size: 2.6em;
+        text-transform: uppercase;
+        }
+
+        #hours, #minutes, #seconds{
+        font-size: 2em;
+        }
+
+        button {
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        -khtml-border-radius: 5px;
+        background: #ffa600;
+        color: #fff;
+        border: solid 1px #fff;
+        text-decoration: none;
+        cursor: pointer;
+        font-size: 1.2em;
+        padding: 18px 10px;
+        width: 180px;
+        margin: 10px;
+        outline: none;
+        }
+        button:hover {
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out;
+        background: #fff;
+        border: solid 1px #fff;
+        color: #ffa600;
+        }
+        </style>    
+    </head> 
+    <body>
+        <audio>
+            <source src="airhorn.mp3" type="audio/mpeg" />
+        </audio>
+        <div class="wrapper">
+            <h1>Power Hour</h1>
+            <p><span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span></p>
+            <button id="button-start">Start</button>
+            <button id="button-stop">Stop</button>
+            <button id="button-reset">Reset</button>
+        </div> 
+    </body>
+</html>
